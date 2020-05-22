@@ -33,4 +33,11 @@ public class HabitController {
         return habitRepository.findAll();
     }
 
+
+    @DeleteMapping("/delete/{habit_id}")
+    public ResponseEntity<?> deleteHabit(@PathVariable(name = "habit_id") Long id) {
+        habitRepository.deleteById(id);
+        return ResponseEntity.ok(new ApiResponse(true, "Pomyślnie usunięto"));
+    }
+
 }
