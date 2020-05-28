@@ -22,17 +22,29 @@ public class Habit {
     @Size(max = 15)
     private String icon;
 
-    public Habit() {
+    @NotBlank
+    @Size(max = 15)
+    private String color;
 
+    public Habit() {
     }
 
-    public Habit(String habit_text, String icon) {
+    public Habit(String habit_text, String icon, String color) {
         this.habit_text = habit_text;
         this.icon = icon;
+        this.color = color;
     }
 
     public long getId() {
         return id;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 
     public void setId(long id) {

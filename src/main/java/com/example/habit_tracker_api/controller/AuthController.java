@@ -93,4 +93,6 @@ public class AuthController {
 
         return ResponseEntity.created(location).body(new ApiResponse(true, "Rejestracja użytkownika przebiegła pomyślnie"));
     }
+
+
 }

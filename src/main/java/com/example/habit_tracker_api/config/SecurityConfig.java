@@ -28,6 +28,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
         prePostEnabled = true
 )
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
     @Autowired
     CustomUserDetailsService customUserDetailsService;
 
@@ -56,6 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -63,12 +65,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf()
                 .disable()
+                .exceptionHandling()
+                .authenticationEntryPoint(unauthorizedHandler)
+                .and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
                 .authorizeRequests()
                 .antMatchers("/api/auth/signup").permitAll()
-                .antMatchers("/signUp").permitAll()
-                .antMatchers("/api/habit/add").permitAll()
-                .antMatchers("/api/habit/all").permitAll()
-                .antMatchers("/api/habit/delete/**").permitAll()
+                .antMatchers("/api/auth/signin").permitAll()
+                .antMatchers("/api/habit/add").authenticated()
+                .antMatchers("/api/habit/all").authenticated()
+                .antMatchers("/api/habit/delete/**").authenticated()
                 .anyRequest().authenticated();
 
 

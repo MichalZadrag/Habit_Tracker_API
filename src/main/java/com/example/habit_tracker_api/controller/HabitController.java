@@ -21,7 +21,7 @@ public class HabitController {
     @PostMapping("/add")
     public ResponseEntity<?> addHabit(@Valid @RequestBody AddHabitRequest addHabitRequest) {
 
-        Habit habit = new Habit(addHabitRequest.getHabit_text(), addHabitRequest.getIcon());
+        Habit habit = new Habit(addHabitRequest.getHabit_text(), addHabitRequest.getIcon(), addHabitRequest.getColor());
 
         habitRepository.save(habit);
 
