@@ -7,7 +7,7 @@ public class AddHabitRequest {
 
 
     @NotNull
-    @Pattern(regexp = "^[a-zA-Z]{3,}$", message = "Nieprawidłowy nawyk")
+    @Pattern(regexp = "^[a-zA-Z]{3,}?( +[a-zA-Z]+)?( +[a-zA-Z]{2,})?$", message = "Nieprawidłowy nawyk")
     private String habit_text;
 
     @NotNull
@@ -15,6 +15,16 @@ public class AddHabitRequest {
 
     @NotNull
     private String color;
+    @NotNull
+    private Long user_id;
+
+    public Long getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(Long user_id) {
+        this.user_id = user_id;
+    }
 
     public String getColor() {
         return color;

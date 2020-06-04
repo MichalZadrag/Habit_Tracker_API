@@ -77,6 +77,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/habit/add").authenticated()
                 .antMatchers("/api/habit/all").authenticated()
                 .antMatchers("/api/habit/delete/**").authenticated()
+                .antMatchers("/api/user/checkUsernameAvailability").permitAll()
+                .antMatchers("/api/user/checkEmailAvailability").permitAll()
                 .anyRequest().authenticated();
 
 

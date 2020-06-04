@@ -26,6 +26,18 @@ public class Habit {
     @Size(max = 15)
     private String color;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public Habit() {
     }
 

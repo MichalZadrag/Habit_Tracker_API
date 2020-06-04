@@ -1,14 +1,22 @@
 package com.example.habit_tracker_api.controller;
 
+import com.example.habit_tracker_api.exception.AppException;
 import com.example.habit_tracker_api.model.Habit;
+import com.example.habit_tracker_api.model.User;
 import com.example.habit_tracker_api.payload.AddHabitRequest;
 import com.example.habit_tracker_api.payload.ApiResponse;
+import com.example.habit_tracker_api.payload.HabitSummary;
 import com.example.habit_tracker_api.repository.HabitRepository;
+import com.example.habit_tracker_api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/habit")
@@ -17,20 +25,41 @@ public class HabitController {
     @Autowired
     HabitRepository habitRepository;
 
+    @Autowired
+    UserRepository userRepository;
+
 
     @PostMapping("/add")
     public ResponseEntity<?> addHabit(@Valid @RequestBody AddHabitRequest addHabitRequest) {
 
         Habit habit = new Habit(addHabitRequest.getHabit_text(), addHabitRequest.getIcon(), addHabitRequest.getColor());
 
+        User user = userRepository.findById(addHabitRequest.getUser_id())
+                .orElseThrow(() -> new AppException("Nie znaleziono uzytkownika "));
+
+        habit.setUser(user);
+
         habitRepository.save(habit);
 
         return ResponseEntity.ok(new ApiResponse(true, "Dodano nowy nawyk"));
     }
 
-    @GetMapping("/all")
-    public Object getAllHabits() {
-        return habitRepository.findAll();
+    @GetMapping("/all/{user_id}")
+    public List<?> getAllHabits(@PathVariable(name = "user_id") Long id) {
+
+        List<Habit> habits = habitRepository.findAll();
+        List<HabitSummary> habitSummaries = new ArrayList<>();
+
+        for (int i = 0; i < habits.size(); i++) {
+            habitSummaries.add(new HabitSummary(habits.get(i).getId(), habits.get(i).getHabit_text(), habits.get(i).getIcon(),
+                    habits.get(i).getColor(), habits.get(i).getUser().getId()));
+        }
+
+        Predicate<HabitSummary> byUserId = habitSummary -> habitSummary.getUser_id() == id;
+
+        List<HabitSummary> filteredHabitSummaries = habitSummaries.stream().filter(byUserId).collect(Collectors.toList());
+
+        return filteredHabitSummaries;
     }
 
 

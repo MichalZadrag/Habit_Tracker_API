@@ -9,6 +9,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -54,6 +55,18 @@ public class User extends DateAudit {
     @ManyToOne
     @JoinColumn(name = "Role_ID")
     private Role role;
+
+
+    @OneToMany(mappedBy = "user")
+    private List<Habit> habits;
+
+    public List<Habit> getHabits() {
+        return habits;
+    }
+
+    public void setHabits(List<Habit> habits) {
+        this.habits = habits;
+    }
 
     public User() {
 
