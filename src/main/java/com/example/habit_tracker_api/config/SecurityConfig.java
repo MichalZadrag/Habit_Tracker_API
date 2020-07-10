@@ -75,10 +75,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/auth/signup").permitAll()
                 .antMatchers("/api/auth/signin").permitAll()
                 .antMatchers("/api/habit/add").authenticated()
-                .antMatchers("/api/habit/all").authenticated()
+                .antMatchers("/api/habit/all/**").authenticated()
                 .antMatchers("/api/habit/delete/**").authenticated()
                 .antMatchers("/api/user/checkUsernameAvailability").permitAll()
                 .antMatchers("/api/user/checkEmailAvailability").permitAll()
+                .antMatchers("/api/task/all/**").permitAll()
                 .anyRequest().authenticated();
 
 

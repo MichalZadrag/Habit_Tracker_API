@@ -1,5 +1,7 @@
 package com.example.habit_tracker_api.payload;
 
+
+
 public class UserSummary {
     private Long id;
     private String username;

@@ -50,10 +50,11 @@ public class HabitController {
         List<Habit> habits = habitRepository.findAll();
         List<HabitSummary> habitSummaries = new ArrayList<>();
 
-        for (int i = 0; i < habits.size(); i++) {
-            habitSummaries.add(new HabitSummary(habits.get(i).getId(), habits.get(i).getHabit_text(), habits.get(i).getIcon(),
-                    habits.get(i).getColor(), habits.get(i).getUser().getId()));
-        }
+        habits.forEach(habit -> {
+            habitSummaries.add(new HabitSummary(habit.getId(),
+                    habit.getHabit_text(), habit.getIcon(),
+                    habit.getColor(), habit.getUser().getId()));
+        });
 
         Predicate<HabitSummary> byUserId = habitSummary -> habitSummary.getUser_id() == id;
 

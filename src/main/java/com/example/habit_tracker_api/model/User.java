@@ -60,6 +60,17 @@ public class User extends DateAudit {
     @OneToMany(mappedBy = "user")
     private List<Habit> habits;
 
+    @OneToMany(mappedBy = "user")
+    private List<Habit> tasks;
+
+    public List<Habit> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Habit> tasks) {
+        this.tasks = tasks;
+    }
+
     public List<Habit> getHabits() {
         return habits;
     }
