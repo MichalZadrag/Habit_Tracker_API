@@ -1,9 +1,12 @@
 package com.example.habit_tracker_api.model;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.Date;
 
 @Entity
 @Table(name = "tasks")
@@ -25,16 +28,19 @@ public class Task {
     @Size(max = 15)
     private String color;
 
-    @NotBlank
-    @Size(max = 20)
-    private String day;
 
-    public String getDay() {
-        return day;
+    @NotBlank
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date date;
+
+
+
+    public Date getDate() {
+        return date;
     }
 
-    public void setDay(String day) {
-        this.day = day;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     @ManyToOne
@@ -43,10 +49,10 @@ public class Task {
 
     public Task() {}
 
-    public Task(String task_text, String color, String day) {
+    public Task(String task_text, String color, Date date) {
         this.task_text = task_text;
         this.color = color;
-        this.day = day;
+        this.date = date;
     }
 
     public long getId() {

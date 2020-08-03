@@ -1,7 +1,10 @@
 package com.example.habit_tracker_api.payload;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.Date;
 
 public class AddTaskRequest {
 
@@ -17,6 +20,18 @@ public class AddTaskRequest {
 
     @NotNull
     private String day;
+
+    @NotNull
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date date;
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
     public String getDay() {
         return day;

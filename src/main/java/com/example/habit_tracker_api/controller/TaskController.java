@@ -1,12 +1,10 @@
 package com.example.habit_tracker_api.controller;
 
 import com.example.habit_tracker_api.exception.AppException;
-import com.example.habit_tracker_api.model.Habit;
 import com.example.habit_tracker_api.model.Task;
 import com.example.habit_tracker_api.model.User;
 import com.example.habit_tracker_api.payload.AddTaskRequest;
 import com.example.habit_tracker_api.payload.ApiResponse;
-import com.example.habit_tracker_api.payload.HabitSummary;
 import com.example.habit_tracker_api.payload.TaskSummary;
 import com.example.habit_tracker_api.repository.TaskRepository;
 import com.example.habit_tracker_api.repository.UserRepository;
@@ -35,7 +33,7 @@ public class TaskController {
     @PostMapping("/add")
     public ResponseEntity<?> addTask(@Valid @RequestBody AddTaskRequest addTaskRequest) {
 
-        Task task = new Task(addTaskRequest.getTask_text(), addTaskRequest.getColor(), addTaskRequest.getDay());
+        Task task = new Task(addTaskRequest.getTask_text(), addTaskRequest.getColor(), addTaskRequest.getDate());
 
         User user = userRepository.findById(addTaskRequest.getUser_id())
                 .orElseThrow(() -> new AppException("Nie znaleziono uzytkownika "));
@@ -55,7 +53,7 @@ public class TaskController {
 
         tasks.forEach(task -> {
             taskSummaries.add(new TaskSummary(task.getId(), task.getTask_text(),
-                    task.getColor(), task.getUser().getId(), task.getDay()));
+                    task.getColor(), task.getUser().getId(), task.getDate()));
         });
 
         Predicate<TaskSummary> byUserId = taskSummary -> taskSummary.getUser_id() == id;

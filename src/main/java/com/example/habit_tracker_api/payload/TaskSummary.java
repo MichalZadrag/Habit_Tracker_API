@@ -1,5 +1,9 @@
 package com.example.habit_tracker_api.payload;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.Date;
+
 public class TaskSummary {
 
     private long id;
@@ -10,22 +14,23 @@ public class TaskSummary {
 
     private long user_id;
 
-    private String day;
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date date;
 
-    public String getDay() {
-        return day;
+    public Date getDate() {
+        return date;
     }
 
-    public void setDay(String day) {
-        this.day = day;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
-    public TaskSummary(long id, String task_text, String color, long user_id, String day) {
+    public TaskSummary(long id, String task_text, String color, long user_id, Date date) {
         this.id = id;
         this.task_text = task_text;
         this.color = color;
         this.user_id = user_id;
-        this.day = day;
+        this.date = date;
     }
 
     public long getId() {
