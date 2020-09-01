@@ -6,11 +6,11 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.Date;
 
-public class AddTaskRequest {
+public class AddEventRequest {
 
     @NotNull
-    @Pattern(regexp = "^[a-zA-Z]{3,}?( +[a-zA-Z]+)?( +[a-zA-Z]{2,})?$", message = "Nieprawidłowy nawyk")
-    private String task_text;
+    @Pattern(regexp = "^[a-zA-Z]{3,}?( +[a-zA-Z]+)?( +[a-zA-Z]{2,})?$", message = "Nieprawidłowa nazwa")
+    private String event_text;
 
     @NotNull
     private String color;
@@ -22,21 +22,13 @@ public class AddTaskRequest {
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date date;
 
-    public Date getDate() {
-        return date;
+
+    public String getEvent_text() {
+        return event_text;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-
-    public String getTask_text() {
-        return task_text;
-    }
-
-    public void setTask_text(String task_text) {
-        this.task_text = task_text;
+    public void setEvent_text(String event_text) {
+        this.event_text = event_text;
     }
 
     public String getColor() {
@@ -53,5 +45,13 @@ public class AddTaskRequest {
 
     public void setUser_id(Long user_id) {
         this.user_id = user_id;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

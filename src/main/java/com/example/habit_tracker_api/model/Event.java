@@ -1,6 +1,5 @@
 package com.example.habit_tracker_api.model;
 
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
@@ -9,25 +8,21 @@ import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
-@Table(name = "tasks")
-public class Task {
-
+@Table(name = "events")
+public class Event {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "task_ID")
+    @Column(name = "event_ID")
     private long id;
-
 
     @NotBlank
     @Size(max = 40)
-    private String task_text;
-
+    private String event_text;
 
     @NotBlank
     @Size(max = 15)
     private String color;
-
 
     @NotBlank
     @JsonFormat(pattern="yyyy-MM-dd")
@@ -37,21 +32,14 @@ public class Task {
     @JoinColumn(name = "user_id")
     private User user;
 
-
-    public Task() {}
-
-    public Task(String task_text, String color, Date date) {
-        this.task_text = task_text;
+    public Event(String event_text, String color, Date date) {
+        this.event_text = event_text;
         this.color = color;
         this.date = date;
     }
 
-    public Date getDate() {
-        return date;
-    }
+    public Event() {
 
-    public void setDate(Date date) {
-        this.date = date;
     }
 
     public long getId() {
@@ -62,12 +50,12 @@ public class Task {
         this.id = id;
     }
 
-    public String getTask_text() {
-        return task_text;
+    public String getEvent_text() {
+        return event_text;
     }
 
-    public void setTask_text(String task_text) {
-        this.task_text = task_text;
+    public void setEvent_text(String event_text) {
+        this.event_text = event_text;
     }
 
     public String getColor() {
@@ -76,6 +64,14 @@ public class Task {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public User getUser() {

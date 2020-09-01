@@ -63,21 +63,8 @@ public class User extends DateAudit {
     @OneToMany(mappedBy = "user")
     private List<Habit> tasks;
 
-    public List<Habit> getTasks() {
-        return tasks;
-    }
-
-    public void setTasks(List<Habit> tasks) {
-        this.tasks = tasks;
-    }
-
-    public List<Habit> getHabits() {
-        return habits;
-    }
-
-    public void setHabits(List<Habit> habits) {
-        this.habits = habits;
-    }
+    @OneToMany(mappedBy = "user")
+    private List<Event> events;
 
     public User() {
 
@@ -146,5 +133,29 @@ public class User extends DateAudit {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public List<Event> getEvents() {
+        return events;
+    }
+
+    public void setEvents(List<Event> events) {
+        this.events = events;
+    }
+
+    public List<Habit> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Habit> tasks) {
+        this.tasks = tasks;
+    }
+
+    public List<Habit> getHabits() {
+        return habits;
+    }
+
+    public void setHabits(List<Habit> habits) {
+        this.habits = habits;
     }
 }
