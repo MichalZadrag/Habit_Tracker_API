@@ -80,6 +80,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/user/checkUsernameAvailability").permitAll()
                 .antMatchers("/api/user/checkEmailAvailability").permitAll()
                 .antMatchers("/api/task/all/**").permitAll()
+                .antMatchers("/api/event/all/**").permitAll()
                 .anyRequest().authenticated();
 
 

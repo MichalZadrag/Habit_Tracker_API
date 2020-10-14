@@ -28,14 +28,20 @@ public class Event {
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date date;
 
+    @NotBlank
+    @Size(max = 40)
+    private String location;
+
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Event(String event_text, String color, Date date) {
+    public Event(String event_text, String color, Date date, String location) {
         this.event_text = event_text;
         this.color = color;
         this.date = date;
+        this.location = location;
     }
 
     public Event() {
@@ -80,5 +86,14 @@ public class Event {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

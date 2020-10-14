@@ -22,6 +22,9 @@ public class AddEventRequest {
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date date;
 
+    @NotNull
+    private String location;
+
 
     public String getEvent_text() {
         return event_text;
@@ -53,5 +56,13 @@ public class AddEventRequest {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

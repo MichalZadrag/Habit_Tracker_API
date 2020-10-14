@@ -2,6 +2,7 @@ package com.example.habit_tracker_api.payload;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class EventSummary {
@@ -14,15 +15,19 @@ public class EventSummary {
 
     private long user_id;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date date;
 
-    public EventSummary(long id, String event_name, String color, long user_id, Date date) {
+    private String location;
+
+
+    public EventSummary(long id, String event_name, String color, long user_id, Date date, String location) {
         this.id = id;
         this.event_name = event_name;
         this.color = color;
         this.user_id = user_id;
         this.date = date;
+        this.location = location;
     }
 
     public long getId() {
@@ -63,5 +68,13 @@ public class EventSummary {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }
