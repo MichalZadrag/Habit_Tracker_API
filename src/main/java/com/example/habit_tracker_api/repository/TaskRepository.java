@@ -1,6 +1,7 @@
 package com.example.habit_tracker_api.repository;
 
 import com.example.habit_tracker_api.model.Task;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,5 +11,6 @@ import java.util.List;
 public interface TaskRepository extends JpaRepository<Task, Long> {
 
     List<Task> findAll();
-    void deleteById(Long id);
+
+
 }

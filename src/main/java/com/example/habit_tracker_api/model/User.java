@@ -57,13 +57,25 @@ public class User extends DateAudit {
     private Role role;
 
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
     private List<Habit> habits;
 
-    @OneToMany(mappedBy = "user")
-    private List<Habit> tasks;
+    @OneToMany(
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Task> tasks;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
     private List<Event> events;
 
     public User() {
@@ -143,11 +155,11 @@ public class User extends DateAudit {
         this.events = events;
     }
 
-    public List<Habit> getTasks() {
+    public List<Task> getTasks() {
         return tasks;
     }
 
-    public void setTasks(List<Habit> tasks) {
+    public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
     }
 
