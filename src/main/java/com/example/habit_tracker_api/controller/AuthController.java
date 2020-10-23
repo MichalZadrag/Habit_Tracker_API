@@ -76,22 +76,22 @@ public class AuthController {
         }
 
         User user = new User(signUpRequest.getFirst_name(), signUpRequest.getLast_name(), signUpRequest.getUsername(),
-                signUpRequest.getEmail(), signUpRequest.getPassword());
+                signUpRequest.getEmail(), passwordEncoder.encode(signUpRequest.getPassword()));
 
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+//        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
                 .orElseThrow(() -> new AppException("Rola użytkownika nie ustawiona"));
 
         user.setRole(userRole);
 
-        User result = userRepository.save(user);
+        userRepository.save(user);
 
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentContextPath().path("/api/users/{username}")
-                .buildAndExpand(result.getUsername()).toUri();
+//        URI location = ServletUriComponentsBuilder
+//                .fromCurrentContextPath().path("/api/users/{username}")
+//                .buildAndExpand(result.getUsername()).toUri();
 
-        return ResponseEntity.created(location).body(new ApiResponse(true, "Rejestracja użytkownika przebiegła pomyślnie"));
+        return ResponseEntity.ok(new ApiResponse(true, "Rejestracja użytkownika przebiegła pomyślnie"));
     }
 
 
