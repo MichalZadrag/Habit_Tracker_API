@@ -9,7 +9,7 @@ import java.util.Date;
 public class AddEventRequest {
 
     @NotNull
-    @Pattern(regexp = "^[a-zA-Z]{3,}?( +[a-zA-Z]+)?( +[a-zA-Z]{2,})?$", message = "Nieprawidłowa nazwa")
+    @Pattern(regexp = "^[a-zA-ZąćęłńóśźżĄĘŁŃÓŚŹŻ]{3,}?( +[a-zA-ZąćęłńóśźżĄĘŁŃÓŚŹŻ]+)?( +[a-zA-ZąćęłńóśźżĄĘŁŃÓŚŹŻ]{2,})?$", message = "Nieprawidłowa nazwa")
     private String event_text;
 
     @NotNull

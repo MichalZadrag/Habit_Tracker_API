@@ -47,6 +47,7 @@ public class AuthController {
     @Autowired
     JwtTokenProvider tokenProvider;
 
+
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
@@ -78,7 +79,6 @@ public class AuthController {
         User user = new User(signUpRequest.getFirst_name(), signUpRequest.getLast_name(), signUpRequest.getUsername(),
                 signUpRequest.getEmail(), passwordEncoder.encode(signUpRequest.getPassword()));
 
-//        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
                 .orElseThrow(() -> new AppException("Rola użytkownika nie ustawiona"));
@@ -87,9 +87,7 @@ public class AuthController {
 
         userRepository.save(user);
 
-//        URI location = ServletUriComponentsBuilder
-//                .fromCurrentContextPath().path("/api/users/{username}")
-//                .buildAndExpand(result.getUsername()).toUri();
+
 
         return ResponseEntity.ok(new ApiResponse(true, "Rejestracja użytkownika przebiegła pomyślnie"));
     }

@@ -5,11 +5,11 @@ import javax.validation.constraints.*;
 public class SignUpRequest {
 
     @NotNull
-    @Pattern(regexp = "^[a-zA-Z0-9]{3,}$", message = "Nieprawidłowe imie")
+    @Pattern(regexp = "^[a-zA-Z0-9ąćęłńóśźżĄĘŁŃÓŚŹŻ]{3,}$", message = "Nieprawidłowe imie")
     private String first_name;
 
     @NotNull
-    @Pattern(regexp = "^[a-zA-Z0-9]{3,}$", message = "Nieprawidłowe nazwisko")
+    @Pattern(regexp = "^[a-zA-Z0-9ąćęłńóśźżĄĘŁŃÓŚŹŻ]{3,}$", message = "Nieprawidłowe nazwisko")
     private String last_name;
 
     @NotNull
