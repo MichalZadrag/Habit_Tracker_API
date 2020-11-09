@@ -58,9 +58,7 @@ public class HabitController {
 
         Predicate<HabitSummary> byUserId = habitSummary -> habitSummary.getUser_id() == id;
 
-        List<HabitSummary> filteredHabitSummaries = habitSummaries.stream().filter(byUserId).collect(Collectors.toList());
-
-        return filteredHabitSummaries;
+        return habitSummaries.stream().filter(byUserId).collect(Collectors.toList());
     }
 
 

@@ -58,10 +58,8 @@ public class TaskController {
 
         Predicate<TaskSummary> byUserId = taskSummary -> taskSummary.getUser_id() == id;
 
-        List<TaskSummary> filteredTaskSummaries = taskSummaries.stream().filter(byUserId).collect(Collectors.toList());
 
-
-        return filteredTaskSummaries;
+        return taskSummaries.stream().filter(byUserId).collect(Collectors.toList());
     }
 
     @DeleteMapping("/delete/{task_id}")

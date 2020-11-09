@@ -25,6 +25,27 @@ public class AddEventRequest {
     @NotNull
     private String location;
 
+    @NotNull
+    private String startTime;
+
+    @NotNull
+    private String endTime;
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
 
     public String getEvent_text() {
         return event_text;

@@ -15,6 +15,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.sql.Time;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -33,7 +36,13 @@ public class EventController {
     @PostMapping("/add")
     public ResponseEntity<?> addNewEvent(@Valid @RequestBody AddEventRequest addEventRequest) {
 
-        Event event = new Event(addEventRequest.getEvent_text(), addEventRequest.getColor(), addEventRequest.getDate(), addEventRequest.getLocation());
+        Event event = new Event(
+                addEventRequest.getEvent_text(),
+                addEventRequest.getColor(),
+                addEventRequest.getDate(),
+                addEventRequest.getLocation(),
+                addEventRequest.getStartTime(),
+                addEventRequest.getEndTime());
 
         User user = userRepository.findById(addEventRequest.getUser_id())
                 .orElseThrow(() -> new AppException("Nie znaleziono uzytkownika "));
@@ -55,13 +64,17 @@ public class EventController {
             eventSummaries.add(new EventSummary(event.getId(),
                     event.getEvent_text(), event.getColor(),
                     event.getUser().getId(), event.getDate(),
-                    event.getLocation()));
+                    event.getLocation(),event.getStartTime(), event.getEndTime()));
         });
 
         Predicate<EventSummary> byUserId = eventSummary -> eventSummary.getUser_id() == id;
 
-        List<EventSummary> filteredEventSummaries = eventSummaries.stream().filter(byUserId).collect(Collectors.toList());
+        return eventSummaries.stream().filter(byUserId).collect(Collectors.toList());
+    }
 
-        return filteredEventSummaries;
+    @DeleteMapping("/delete/{event_id}")
+    public ResponseEntity<?> deleteEvent(@PathVariable(name = "event_id") Long id) {
+        eventRepository.deleteById(id);
+        return ResponseEntity.ok(new ApiResponse(true, "Pomyślnie usunięto"));
     }
 }
