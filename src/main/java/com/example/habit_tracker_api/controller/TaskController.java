@@ -23,7 +23,6 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/task")
 public class TaskController {
 
-
     @Autowired
     TaskRepository taskRepository;
 

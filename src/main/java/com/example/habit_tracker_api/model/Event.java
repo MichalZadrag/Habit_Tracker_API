@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -37,7 +36,6 @@ public class Event {
 
     @NotBlank
     private String endTime;
-
 
     @ManyToOne
     @JoinColumn(name = "user_id")

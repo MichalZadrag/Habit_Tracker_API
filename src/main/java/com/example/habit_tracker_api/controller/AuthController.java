@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
@@ -57,7 +56,6 @@ public class AuthController {
                         loginRequest.getPassword()
                 )
         );
-
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String jwt = tokenProvider.generateToken(authentication);
@@ -76,8 +74,11 @@ public class AuthController {
                     HttpStatus.BAD_REQUEST);
         }
 
-        User user = new User(signUpRequest.getFirst_name(), signUpRequest.getLast_name(), signUpRequest.getUsername(),
-                signUpRequest.getEmail(), passwordEncoder.encode(signUpRequest.getPassword()));
+        User user = new User(signUpRequest.getFirst_name(),
+                signUpRequest.getLast_name(),
+                signUpRequest.getUsername(),
+                signUpRequest.getEmail(),
+                passwordEncoder.encode(signUpRequest.getPassword()));
 
 
         Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
@@ -86,8 +87,6 @@ public class AuthController {
         user.setRole(userRole);
 
         userRepository.save(user);
-
-
 
         return ResponseEntity.ok(new ApiResponse(true, "Rejestracja użytkownika przebiegła pomyślnie"));
     }

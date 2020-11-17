@@ -24,13 +24,10 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
-
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     RoleRepository roleRepository;
-
     @Autowired
     PasswordEncoder passwordEncoder;
 

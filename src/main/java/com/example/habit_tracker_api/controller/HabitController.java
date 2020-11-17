@@ -38,6 +38,7 @@ public class HabitController {
                 .orElseThrow(() -> new AppException("Nie znaleziono uzytkownika "));
 
         habit.setUser(user);
+        habit.setSeries(0);
 
         habitRepository.save(habit);
 
@@ -66,6 +67,15 @@ public class HabitController {
     public ResponseEntity<?> deleteHabit(@PathVariable(name = "habit_id") Long id) {
         habitRepository.deleteById(id);
         return ResponseEntity.ok(new ApiResponse(true, "Pomyślnie usunięto"));
+    }
+
+    @PatchMapping("/increment/{habit_id}")
+    public ResponseEntity<?> incrementSeries(@PathVariable(name = "habit_id") Long id) {
+        Habit habit = habitRepository.findById(id).get();
+        long series = habit.getSeries();
+        habit.setSeries(++series);
+        habitRepository.save(habit);
+        return ResponseEntity.ok(new ApiResponse(true, "Pomyślnie zmieniono"));
     }
 
 }

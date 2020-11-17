@@ -30,6 +30,9 @@ public class Habit {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @NotBlank
+    private long series;
+
     public User getUser() {
         return user;
     }
@@ -77,5 +80,13 @@ public class Habit {
 
     public void setIcon(String icon) {
         this.icon = icon;
+    }
+
+    public long getSeries() {
+        return series;
+    }
+
+    public void setSeries(long series) {
+        this.series = series;
     }
 }

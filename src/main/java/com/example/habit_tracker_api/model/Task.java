@@ -12,22 +12,18 @@ import java.util.Date;
 @Table(name = "tasks")
 public class Task {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "task_ID")
     private long id;
 
-
     @NotBlank
     @Size(max = 40)
     private String task_text;
 
-
     @NotBlank
     @Size(max = 15)
     private String color;
-
 
     @NotBlank
     @JsonFormat(pattern="yyyy-MM-dd")
@@ -36,7 +32,6 @@ public class Task {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
 
     public Task() {}
 
