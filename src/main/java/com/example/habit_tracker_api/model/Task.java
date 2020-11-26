@@ -33,12 +33,24 @@ public class Task {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @NotBlank
+    private boolean isDone;
+
     public Task() {}
 
-    public Task(String task_text, String color, Date date) {
+    public Task(String task_text, String color, Date date, boolean isDone) {
         this.task_text = task_text;
         this.color = color;
         this.date = date;
+        this.isDone = isDone;
+    }
+
+    public boolean isDone() {
+        return isDone;
+    }
+
+    public void setDone(boolean done) {
+        isDone = done;
     }
 
     public Date getDate() {

@@ -22,6 +22,17 @@ public class AddTaskRequest {
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date date;
 
+    @NotNull
+    private boolean isDone;
+
+    public boolean isDone() {
+        return isDone;
+    }
+
+    public void setDone(boolean done) {
+        isDone = done;
+    }
+
     public Date getDate() {
         return date;
     }

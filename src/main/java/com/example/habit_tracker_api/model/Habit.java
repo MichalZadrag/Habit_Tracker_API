@@ -1,13 +1,15 @@
 package com.example.habit_tracker_api.model;
 
 
+import com.example.habit_tracker_api.model.audit.DateAudit;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "habits")
-public class Habit {
+public class Habit extends DateAudit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,21 +35,34 @@ public class Habit {
     @NotBlank
     private long series;
 
+    @NotBlank
+    private boolean isDone;
+
+
+    public Habit() {
+    }
+
+    public Habit(String habit_text, String icon, String color, boolean isDone) {
+        this.habit_text = habit_text;
+        this.icon = icon;
+        this.color = color;
+        this.isDone = isDone;
+    }
+
+    public boolean isDone() {
+        return isDone;
+    }
+
+    public void setDone(boolean done) {
+        isDone = done;
+    }
+
     public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public Habit() {
-    }
-
-    public Habit(String habit_text, String icon, String color) {
-        this.habit_text = habit_text;
-        this.icon = icon;
-        this.color = color;
     }
 
     public long getId() {

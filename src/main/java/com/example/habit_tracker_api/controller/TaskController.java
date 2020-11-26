@@ -32,7 +32,7 @@ public class TaskController {
     @PostMapping("/add")
     public ResponseEntity<?> addTask(@Valid @RequestBody AddTaskRequest addTaskRequest) {
 
-        Task task = new Task(addTaskRequest.getTask_text(), addTaskRequest.getColor(), addTaskRequest.getDate());
+        Task task = new Task(addTaskRequest.getTask_text(), addTaskRequest.getColor(), addTaskRequest.getDate(), addTaskRequest.isDone());
 
         User user = userRepository.findById(addTaskRequest.getUser_id())
                 .orElseThrow(() -> new AppException("Nie znaleziono uzytkownika "));
@@ -52,7 +52,7 @@ public class TaskController {
 
         tasks.forEach(task -> {
             taskSummaries.add(new TaskSummary(task.getId(), task.getTask_text(),
-                    task.getColor(), task.getUser().getId(), task.getDate()));
+                    task.getColor(), task.getUser().getId(), task.getDate(), task.isDone()));
         });
 
         Predicate<TaskSummary> byUserId = taskSummary -> taskSummary.getUser_id() == id;
@@ -65,5 +65,13 @@ public class TaskController {
     public ResponseEntity<?> deleteTask(@PathVariable(name = "task_id") Long id) {
         taskRepository.deleteById(id);
         return ResponseEntity.ok(new ApiResponse(true, "Pomyślnie usunięto"));
+    }
+
+    @PatchMapping("/done/{task_id}")
+    public ResponseEntity<?> setTaskDone(@PathVariable(name = "task_id") Long id) {
+        Task task = taskRepository.findById(id).get();
+        task.setDone(true);
+        taskRepository.save(task);
+        return ResponseEntity.ok(new ApiResponse(true, "Pomyślnie zmieniono"));
     }
 }

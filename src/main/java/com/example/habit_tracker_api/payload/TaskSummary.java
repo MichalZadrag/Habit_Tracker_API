@@ -17,6 +17,8 @@ public class TaskSummary {
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date date;
 
+    private boolean isDone;
+
     public Date getDate() {
         return date;
     }
@@ -25,12 +27,21 @@ public class TaskSummary {
         this.date = date;
     }
 
-    public TaskSummary(long id, String task_text, String color, long user_id, Date date) {
+    public TaskSummary(long id, String task_text, String color, long user_id, Date date, boolean isDone) {
         this.id = id;
         this.task_text = task_text;
         this.color = color;
         this.user_id = user_id;
         this.date = date;
+        this.isDone = isDone;
+    }
+
+    public boolean isDone() {
+        return isDone;
+    }
+
+    public void setDone(boolean done) {
+        isDone = done;
     }
 
     public long getId() {

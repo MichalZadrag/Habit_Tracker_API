@@ -15,8 +15,20 @@ public class AddHabitRequest {
 
     @NotNull
     private String color;
+
     @NotNull
     private Long user_id;
+
+    @NotNull
+    private boolean isDone;
+
+    public boolean isDone() {
+        return isDone;
+    }
+
+    public void setDone(boolean done) {
+        isDone = done;
+    }
 
     public Long getUser_id() {
         return user_id;
