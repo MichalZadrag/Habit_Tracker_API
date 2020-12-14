@@ -16,14 +16,17 @@ public class HabitSummary {
 
     private boolean isDone;
 
+    private long series;
 
-    public HabitSummary(long id, String habit_text, String icon, String color, long user_id, boolean isDone) {
+
+    public HabitSummary(long id, String habit_text, String icon, String color, long user_id, boolean isDone, long series) {
         this.id = id;
         this.habit_text = habit_text;
         this.icon = icon;
         this.color = color;
         this.user_id = user_id;
         this.isDone = isDone;
+        this.series = series;
     }
 
     public boolean isDone() {
@@ -72,5 +75,13 @@ public class HabitSummary {
 
     public void setUser_id(long user_id) {
         this.user_id = user_id;
+    }
+
+    public long getSeries() {
+        return series;
+    }
+
+    public void setSeries(long series) {
+        this.series = series;
     }
 }

@@ -60,7 +60,7 @@ public class HabitController {
             habitSummaries.add(new HabitSummary(habit.getId(),
                                 habit.getHabit_text(), habit.getIcon(),
                                 habit.getColor(), habit.getUser().getId(),
-                                habit.isDone()));
+                                habit.isDone(), habit.getSeries()));
         });
 
         Predicate<HabitSummary> byUserId = habitSummary -> habitSummary.getUser_id() == id;

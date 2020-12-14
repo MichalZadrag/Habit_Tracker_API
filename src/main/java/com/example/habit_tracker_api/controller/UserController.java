@@ -5,6 +5,7 @@ import com.example.habit_tracker_api.exception.AppException;
 import com.example.habit_tracker_api.model.Role;
 import com.example.habit_tracker_api.model.RoleName;
 
+import com.example.habit_tracker_api.model.User;
 import com.example.habit_tracker_api.payload.ApiResponse;
 import com.example.habit_tracker_api.payload.SignUpRequest;
 import com.example.habit_tracker_api.payload.UserIdentityAvailability;
@@ -45,8 +46,10 @@ public class UserController {
 
     @GetMapping("/me")
     public UserSummary getCurrentUser(@CurrentUser UserPrincipal currentUser) {
-        UserSummary userSummary = new UserSummary(currentUser.getId(), currentUser.getUsername(), currentUser.getFirst_name(), currentUser.getLast_name(), currentUser.getEmail());
-        return userSummary;
+
+        return new UserSummary(currentUser.getId(), currentUser.getUsername(),
+                                                  currentUser.getFirst_name(),
+                                                  currentUser.getLast_name(), currentUser.getEmail());
     }
 
     @DeleteMapping("/delete/{user_id}")
