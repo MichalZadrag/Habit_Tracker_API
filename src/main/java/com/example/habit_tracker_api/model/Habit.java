@@ -18,7 +18,7 @@ public class Habit extends DateAudit {
 
     @NotBlank
     @Size(max = 40)
-    private String habit_text;
+    private String habitText;
 
     @NotBlank
     @Size(max = 15)
@@ -45,8 +45,8 @@ public class Habit extends DateAudit {
     public Habit() {
     }
 
-    public Habit(String habit_text, String icon, String color, boolean isDone) {
-        this.habit_text = habit_text;
+    public Habit(String habitText, String icon, String color, boolean isDone) {
+        this.habitText = habitText;
         this.icon = icon;
         this.color = color;
         this.isDone = isDone;
@@ -84,12 +84,12 @@ public class Habit extends DateAudit {
         this.id = id;
     }
 
-    public String getHabit_text() {
-        return habit_text;
+    public String getHabitText() {
+        return habitText;
     }
 
-    public void setHabit_text(String habit_text) {
-        this.habit_text = habit_text;
+    public void setHabitText(String habit_text) {
+        this.habitText = habit_text;
     }
 
     public String getIcon() {

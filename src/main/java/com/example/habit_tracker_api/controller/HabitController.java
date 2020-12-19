@@ -6,9 +6,11 @@ import com.example.habit_tracker_api.model.User;
 import com.example.habit_tracker_api.payload.AddHabitRequest;
 import com.example.habit_tracker_api.payload.ApiResponse;
 import com.example.habit_tracker_api.payload.HabitSummary;
+import com.example.habit_tracker_api.payload.UserIdentityAvailability;
 import com.example.habit_tracker_api.repository.HabitRepository;
 import com.example.habit_tracker_api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +36,11 @@ public class HabitController {
     @PostMapping("/add")
     public ResponseEntity<?> addHabit(@Valid @RequestBody AddHabitRequest addHabitRequest) {
 
+        if(habitRepository.existsByHabitText(addHabitRequest.getHabit_text())) {
+            return new ResponseEntity(new ApiResponse(false, "Nawyk o takiej już nazwie istnieje"),
+                    HttpStatus.BAD_REQUEST);
+        }
+
         Habit habit = new Habit(addHabitRequest.getHabit_text(),
                 addHabitRequest.getIcon(),
                 addHabitRequest.getColor(),
@@ -51,6 +58,12 @@ public class HabitController {
         return ResponseEntity.ok(new ApiResponse(true, "Dodano nowy nawyk"));
     }
 
+    @GetMapping("/checkHabitAvailability")
+    public UserIdentityAvailability checkUsernameAvailability(@RequestParam(value = "habit") String habit_text) {
+        Boolean isAvailable = !habitRepository.existsByHabitText(habit_text);
+        return new UserIdentityAvailability(isAvailable);
+    }
+
     @GetMapping("/all/{user_id}")
     public List<?> getAllHabits(@PathVariable(name = "user_id") Long id) {
 
@@ -59,7 +72,7 @@ public class HabitController {
 
         habits.forEach(habit -> {
             habitSummaries.add(new HabitSummary(habit.getId(),
-                    habit.getHabit_text(), habit.getIcon(),
+                    habit.getHabitText(), habit.getIcon(),
                     habit.getColor(), habit.getUser().getId(),
                     habit.isDone(), habit.getSeries(), habit.getMax_series()));
         });

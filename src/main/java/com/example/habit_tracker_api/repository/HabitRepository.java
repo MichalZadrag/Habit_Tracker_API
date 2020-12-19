@@ -15,5 +15,6 @@ public interface HabitRepository extends JpaRepository<Habit, Long> {
         List<Habit> findAll();
 
         void deleteHabitsByUserId(Long id);
+        Boolean existsByHabitText(String habit_text);
 
 }

@@ -79,6 +79,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/habit/delete/**").authenticated()
                 .antMatchers("/api/user/checkUsernameAvailability").permitAll()
                 .antMatchers("/api/user/checkEmailAvailability").permitAll()
+                .antMatchers("/api/habit/checkHabitAvailability").permitAll()
                 .antMatchers("/api/task/all/**").permitAll()
                 .antMatchers("/api/event/all/**").permitAll()
                 .anyRequest().authenticated();
@@ -89,6 +90,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity webSec) {
         webSec.ignoring()
-                .antMatchers("/resources/**", "/statics/**", "/css/**", "/js/**", "/images/**", "/incl/**","/vendor/**");
+                .antMatchers("/resources/**", "/statics/**", "/css/**", "/js/**", "/images/**", "/incl/**", "/vendor/**");
     }
 }
