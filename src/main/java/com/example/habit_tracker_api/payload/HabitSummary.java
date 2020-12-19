@@ -18,8 +18,10 @@ public class HabitSummary {
 
     private long series;
 
+    private long max_series;
 
-    public HabitSummary(long id, String habit_text, String icon, String color, long user_id, boolean isDone, long series) {
+
+    public HabitSummary(long id, String habit_text, String icon, String color, long user_id, boolean isDone, long series, long max_series) {
         this.id = id;
         this.habit_text = habit_text;
         this.icon = icon;
@@ -27,6 +29,7 @@ public class HabitSummary {
         this.user_id = user_id;
         this.isDone = isDone;
         this.series = series;
+        this.max_series = max_series;
     }
 
     public boolean isDone() {
@@ -83,5 +86,13 @@ public class HabitSummary {
 
     public void setSeries(long series) {
         this.series = series;
+    }
+
+    public long getMax_series() {
+        return max_series;
+    }
+
+    public void setMax_series(long max_series) {
+        this.max_series = max_series;
     }
 }

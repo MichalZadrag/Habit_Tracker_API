@@ -35,15 +35,16 @@ public class HabitController {
     public ResponseEntity<?> addHabit(@Valid @RequestBody AddHabitRequest addHabitRequest) {
 
         Habit habit = new Habit(addHabitRequest.getHabit_text(),
-                                addHabitRequest.getIcon(),
-                                addHabitRequest.getColor(),
-                                addHabitRequest.isDone());
+                addHabitRequest.getIcon(),
+                addHabitRequest.getColor(),
+                addHabitRequest.isDone());
 
         User user = userRepository.findById(addHabitRequest.getUser_id())
                 .orElseThrow(() -> new AppException("Nie znaleziono uzytkownika "));
 
         habit.setUser(user);
         habit.setSeries(0);
+        habit.setMax_series(0);
 
         habitRepository.save(habit);
 
@@ -58,9 +59,9 @@ public class HabitController {
 
         habits.forEach(habit -> {
             habitSummaries.add(new HabitSummary(habit.getId(),
-                                habit.getHabit_text(), habit.getIcon(),
-                                habit.getColor(), habit.getUser().getId(),
-                                habit.isDone(), habit.getSeries()));
+                    habit.getHabit_text(), habit.getIcon(),
+                    habit.getColor(), habit.getUser().getId(),
+                    habit.isDone(), habit.getSeries(), habit.getMax_series()));
         });
 
         Predicate<HabitSummary> byUserId = habitSummary -> habitSummary.getUser_id() == id;
@@ -79,7 +80,12 @@ public class HabitController {
     public ResponseEntity<?> incrementSeries(@PathVariable(name = "habit_id") Long id) {
         Habit habit = habitRepository.findById(id).get();
         long series = habit.getSeries();
-        habit.setSeries(++series);
+        long incrementedSeries = series + 1;
+        long maxSeries = habit.getMax_series();
+        if (incrementedSeries > maxSeries) {
+            habit.setMax_series(incrementedSeries);
+        }
+        habit.setSeries(incrementedSeries);
         habit.setDone(true);
         habitRepository.save(habit);
         return ResponseEntity.ok(new ApiResponse(true, "Pomyślnie zmieniono"));
@@ -87,7 +93,7 @@ public class HabitController {
 
     @Scheduled(cron = "0 0 6 * * *")
     public void resetSeries() {
-        List<Habit> habits =  habitRepository.findAll();
+        List<Habit> habits = habitRepository.findAll();
         int oneDayInMs = 86400000;
         habits.forEach(habit -> {
             Date habitUpdatedAt = Date.from(habit.getUpdatedAt());

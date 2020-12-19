@@ -36,6 +36,9 @@ public class Habit extends DateAudit {
     private long series;
 
     @NotBlank
+    private long max_series;
+
+    @NotBlank
     private boolean isDone;
 
 
@@ -103,5 +106,13 @@ public class Habit extends DateAudit {
 
     public void setSeries(long series) {
         this.series = series;
+    }
+
+    public long getMax_series() {
+        return max_series;
+    }
+
+    public void setMax_series(long max_series) {
+        this.max_series = max_series;
     }
 }
