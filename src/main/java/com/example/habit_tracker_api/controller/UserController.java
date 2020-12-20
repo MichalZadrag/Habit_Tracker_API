@@ -62,14 +62,17 @@ public class UserController {
     @PutMapping("/update/{user_id}")
     public ResponseEntity<?> updateUser(@PathVariable(name = "user_id") Long id, @Valid @RequestBody SignUpRequest newDataRequest) {
 
-        if(userRepository.existsByUsername(newDataRequest.getUsername())) {
-            return new ResponseEntity(new ApiResponse(false, "Podany nick jest zajęty"),
-                    HttpStatus.BAD_REQUEST);
+        if(!userRepository.findById(id).get().getUsername().equals(newDataRequest.getUsername())) {
+            if (userRepository.existsByUsername(newDataRequest.getUsername())) {
+                return new ResponseEntity(new ApiResponse(false, "Podany nick jest zajęty"),
+                        HttpStatus.BAD_REQUEST);
+            }
         }
-
-        if(userRepository.existsByEmail(newDataRequest.getEmail())) {
-            return new ResponseEntity(new ApiResponse(false, "Podany email jest zajęty"),
-                    HttpStatus.BAD_REQUEST);
+        if(!userRepository.findById(id).get().getEmail().equals(newDataRequest.getEmail())) {
+            if (userRepository.existsByEmail(newDataRequest.getEmail())) {
+                return new ResponseEntity(new ApiResponse(false, "Podany email jest zajęty"),
+                        HttpStatus.BAD_REQUEST);
+            }
         }
 
         Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
