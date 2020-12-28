@@ -2,12 +2,13 @@ package com.example.habit_tracker_api.payload;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import static com.example.habit_tracker_api.utils.RegularExpressions.*;
 
 public class AddHabitRequest {
 
 
     @NotNull
-    @Pattern(regexp = "^[a-zA-ZąćęłńóśźżĄĘŁŃÓŚŹŻ]{3,}?( +[a-zA-ZąćęłńóśźżĄĘŁŃÓŚŹŻ]+)?( +[a-zA-ZąćęłńóśźżĄĘŁŃÓŚŹŻ]{2,})?$", message = "Nieprawidłowy nawyk")
+    @Pattern(regexp = HABIT_AND_TASK_AND_EVENT_REGEXP, message = "Nieprawidłowy nawyk")
     private String habit_text;
 
     @NotNull

@@ -5,11 +5,12 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.Date;
+import static com.example.habit_tracker_api.utils.RegularExpressions.*;
 
 public class AddTaskRequest {
 
     @NotNull
-    @Pattern(regexp = "^[a-zA-ZąćęłńóśźżĄĘŁŃÓŚŹŻ]{3,}?( +[a-zA-ZąćęłńóśźżĄĘŁŃÓŚŹŻ]+)?( +[a-zA-ZąćęłńóśźżĄĘŁŃÓŚŹŻ]{2,})?$", message = "Nieprawidłowy nawyk")
+    @Pattern(regexp = HABIT_AND_TASK_AND_EVENT_REGEXP, message = "Nieprawidłowy nawyk")
     private String task_text;
 
     @NotNull

@@ -1,19 +1,20 @@
 package com.example.habit_tracker_api.payload;
 
 import javax.validation.constraints.*;
+import static com.example.habit_tracker_api.utils.RegularExpressions.*;
 
 public class SignUpRequest {
 
     @NotNull
-    @Pattern(regexp = "^[a-zA-Z0-9ąćęłńóśźżĄĘŁŃÓŚŹŻ]{3,}$", message = "Nieprawidłowe imie")
+    @Pattern(regexp = NAME_REGEXP, message = "Nieprawidłowe imie")
     private String first_name;
 
     @NotNull
-    @Pattern(regexp = "^[a-zA-Z0-9ąćęłńóśźżĄĘŁŃÓŚŹŻ]{3,}$", message = "Nieprawidłowe nazwisko")
+    @Pattern(regexp = NAME_REGEXP, message = "Nieprawidłowe nazwisko")
     private String last_name;
 
     @NotNull
-    @Pattern(regexp = "^[a-zA-Z0-9]{4,}$", message = "Nieprawidłowa nazwa użytkownika")
+    @Pattern(regexp = USERNAME_REGEXP, message = "Nieprawidłowa nazwa użytkownika")
     private String username;
 
     @NotNull(message = "Nieprawidłowy email")
