@@ -36,7 +36,10 @@ public class HabitController {
     @PostMapping("/add")
     public ResponseEntity<?> addHabit(@Valid @RequestBody AddHabitRequest addHabitRequest) {
 
-        if(habitRepository.existsByHabitText(addHabitRequest.getHabit_text())) {
+        User user = userRepository.findById(addHabitRequest.getUser_id())
+                .orElseThrow(() -> new AppException("Nie znaleziono uzytkownika "));
+
+        if(habitRepository.existsByHabitTextAndUser(addHabitRequest.getHabit_text(), user)) {
             return new ResponseEntity(new ApiResponse(false, "Nawyk o takiej już nazwie istnieje"),
                     HttpStatus.BAD_REQUEST);
         }
@@ -46,8 +49,6 @@ public class HabitController {
                 addHabitRequest.getColor(),
                 addHabitRequest.isDone());
 
-        User user = userRepository.findById(addHabitRequest.getUser_id())
-                .orElseThrow(() -> new AppException("Nie znaleziono uzytkownika "));
 
         habit.setUser(user);
         habit.setSeries(0);
@@ -59,8 +60,12 @@ public class HabitController {
     }
 
     @GetMapping("/checkHabitAvailability")
-    public UserIdentityAvailability checkUsernameAvailability(@RequestParam(value = "habit") String habit_text) {
-        Boolean isAvailable = !habitRepository.existsByHabitText(habit_text);
+    public UserIdentityAvailability checkUsernameAvailability(@RequestParam(value = "habit") String habit_text, @RequestParam("user_id") Long user_id) {
+
+        User user = userRepository.findById(user_id)
+                .orElseThrow(() -> new AppException("Nie znaleziono uzytkownika "));
+
+        Boolean isAvailable = !habitRepository.existsByHabitTextAndUser(habit_text, user);
         return new UserIdentityAvailability(isAvailable);
     }
 

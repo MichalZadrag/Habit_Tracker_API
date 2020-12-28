@@ -1,6 +1,7 @@
 package com.example.habit_tracker_api.repository;
 
 import com.example.habit_tracker_api.model.Habit;
+import com.example.habit_tracker_api.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -16,5 +17,6 @@ public interface HabitRepository extends JpaRepository<Habit, Long> {
 
         void deleteHabitsByUserId(Long id);
         Boolean existsByHabitText(String habit_text);
+        Boolean existsByHabitTextAndUser(String habit_text, User user);
 
 }
