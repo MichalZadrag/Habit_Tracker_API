@@ -5,7 +5,6 @@ import com.example.habit_tracker_api.exception.AppException;
 import com.example.habit_tracker_api.model.Role;
 import com.example.habit_tracker_api.model.RoleName;
 
-import com.example.habit_tracker_api.model.User;
 import com.example.habit_tracker_api.payload.ApiResponse;
 import com.example.habit_tracker_api.payload.SignUpRequest;
 import com.example.habit_tracker_api.payload.UserIdentityAvailability;

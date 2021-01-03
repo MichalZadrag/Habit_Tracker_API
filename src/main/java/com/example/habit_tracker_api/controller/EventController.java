@@ -7,7 +7,6 @@ import com.example.habit_tracker_api.model.User;
 import com.example.habit_tracker_api.payload.AddEventRequest;
 import com.example.habit_tracker_api.payload.ApiResponse;
 import com.example.habit_tracker_api.payload.EventSummary;
-import com.example.habit_tracker_api.payload.HabitSummary;
 import com.example.habit_tracker_api.repository.EventRepository;
 import com.example.habit_tracker_api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.sql.Time;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
