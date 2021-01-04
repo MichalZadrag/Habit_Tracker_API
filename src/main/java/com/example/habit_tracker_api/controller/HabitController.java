@@ -109,7 +109,7 @@ public class HabitController {
         return ResponseEntity.ok(new ApiResponse(true, "Pomyślnie zmieniono"));
     }
 
-    @Scheduled(cron = "0 30 19 * * *", zone = "Europe/Berlin")
+    @Scheduled(cron = "0 30 20 * * *", zone = "Europe/Berlin")
     public void resetSeries() {
         List<Habit> habits = habitRepository.findAll();
         int oneDayInMs = 86400000;
