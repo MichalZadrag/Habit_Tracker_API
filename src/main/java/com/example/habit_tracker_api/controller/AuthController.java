@@ -87,7 +87,7 @@ public class AuthController {
 
         userRepository.save(user);
 
-        return ResponseEntity.ok(new ApiResponse(true, "Rejestracja użytkownika przebiegła pomyślnie"));
+        return ResponseEntity.ok(new ApiResponse(true, "Rejestracja przebiegła pomyślnie"));
     }
 
 
