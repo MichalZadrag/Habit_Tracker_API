@@ -112,7 +112,7 @@ public class HabitController {
     @Scheduled(cron = "0 0 6 * * *", zone = "Europe/Berlin")
     public void resetSeries() {
         List<Habit> habits = habitRepository.findAll();
-        int oneDayInMs = 86400000;
+        int oneDayInMs = 84600000;
         habits.forEach(habit -> {
             Date habitUpdatedAt = Date.from(habit.getUpdatedAt());
             Date now = new Date();

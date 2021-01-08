@@ -10,5 +10,4 @@ public final class RegularExpressions {
 
     public static final String USERNAME_REGEXP = "^[a-zA-Z0-9]{4,10}$";
 
-
 }
